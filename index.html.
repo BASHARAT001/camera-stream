@@ -1,0 +1,34 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Back Camera Stream with Mic</title>
+  </head>
+  <body>
+    <h2>Back Camera Stream with Mic</h2>
+    <video id="video" autoplay playsinline style="width: 100%; max-width: 600px;"></video>
+
+    <script>
+      async function startCamera() {
+        try {
+          const constraints = {
+            video: {
+              facingMode: { exact: "environment" } // Use back camera
+            },
+            audio: true // Use microphone
+          };
+
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);
+          const video = document.getElementById("video");
+          video.srcObject = stream;
+        } catch (err) {
+          console.error("Error accessing camera/mic:", err);
+          alert("Camera or microphone access failed.");
+        }
+      }
+
+      startCamera();
+    </script>
+  </body>
+  </html>
